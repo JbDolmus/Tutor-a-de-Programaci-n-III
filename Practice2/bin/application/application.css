@@ -1,0 +1,167 @@
+.form-container {
+    -fx-background-color: linear-gradient(to right, #2E2E2E, #1C1C1C);
+    -fx-padding: 20px;
+    -fx-border-color: #444;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+.form-container Label {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 0;
+}
+
+.form-container Label[alignment="CENTER"] {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFD700; /* Dorado */
+    -fx-padding: 10px 0;
+}
+
+.form-container TextField, 
+.form-container TextArea, 
+.form-container ComboBox {
+    -fx-background-color: #333; /* Fondo oscuro */
+    -fx-text-fill: #FFF; /* Texto blanco */
+    -fx-border-color: #555;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+    
+}
+
+.form-container TextArea {
+    -fx-text-fill: #333;
+}
+
+.form-container TextField:focused, 
+.form-container TextArea:focused, 
+.form-container ComboBox:focused {
+    -fx-border-color: #FFD700; /* Dorado */
+    -fx-background-color: #444;
+}
+
+.form-container ComboBox .list-cell {
+    -fx-text-fill: #FFF; /* Texto blanco */
+    -fx-background-color: #333; /* Fondo oscuro */
+}
+
+.form-container ComboBox .list-cell:hover {
+    -fx-background-color: #444; /* Fondo al pasar el ratón */
+}
+
+.form-container ComboBox .list-cell:selected {
+    -fx-background-color: #555; /* Fondo seleccionado */
+    -fx-text-fill: #FFF; /* Texto seleccionado */
+}
+
+.form-container ComboBox .text-field {
+    -fx-text-fill: #FFF; /* Texto blanco en modo editable */
+    -fx-background-color: #333; /* Fondo oscuro */
+    -fx-border-color: #555;
+}
+
+.form-container ComboBox .arrow {
+    -fx-background-color: #444; /* Fondo del botón de flecha */
+}
+
+.form-container Button {
+    -fx-background-color: linear-gradient(to bottom, #444, #222);
+    -fx-text-fill: #FFF;
+    -fx-font-family: "Arial Narrow Bold";
+    -fx-font-size: 14px;
+    -fx-border-color: #555;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px;
+    -fx-cursor: hand;
+}
+
+.form-container Button:hover {
+    -fx-background-color: linear-gradient(to bottom, #555, #333);
+}
+
+.form-container Button:pressed {
+    -fx-background-color: linear-gradient(to bottom, #666, #444);
+}
+
+.form-container Button:disabled {
+    -fx-background-color: #333;
+    -fx-border-color: #555;
+    -fx-text-fill: #888;
+}
+
+.form-container Button#btnRegister {
+    -fx-background-color: linear-gradient(to bottom, #0066cc, #004999);
+}
+
+.form-container Button#btnRegister:hover {
+    -fx-background-color: linear-gradient(to bottom, #0077ff, #0055aa);
+}
+
+.form-container Button#btnCancel {
+    -fx-background-color: linear-gradient(to bottom, #cc3333, #992222);
+}
+
+.form-container Button#btnCancel:hover {
+    -fx-background-color: linear-gradient(to bottom, #ff4444, #aa3333);
+}
+
+.form-container * {
+    -fx-font-family: "Arial Narrow";
+    -fx-font-size: 14px;
+}
+
+/* Estilo para el ScrollBar */
+.form-container ScrollBar {
+    -fx-background-color: #333; /* Fondo oscuro */
+}
+
+.form-container ScrollBar .thumb {
+    -fx-background-color: #555; /* Pulgar de scroll */
+}
+
+/* Estilo para la tabla */
+.table-container {
+    -fx-background-color: linear-gradient(to right, #141e30, #243b55); /* Gradiente oscuro vibrante */
+    -fx-border-color: #1e90ff;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+    -fx-padding: 15px;
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 12, 0, 0, 6);
+}
+
+.table-container Label {
+    -fx-text-fill: #dfe6e9; /* Texto gris claro para contraste */
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.table-container TableView {
+    -fx-border-color: #ffffff; /* Bordes de tabla más visibles */
+    -fx-border-width: 1.5px;
+    -fx-border-style: solid;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-background-color: rgba(35, 47, 62, 0.9); /* Fondo azul oscuro semitransparente */
+}
+
+.table-container TableView .table-row-cell {
+    -fx-text-fill: #ffffff; /* Texto blanco para mayor contraste */
+    -fx-font-size: 14px;
+}
+
+.table-container TableView .column-header {
+    -fx-background-color: linear-gradient(to bottom, #1e3c72, #2a5298); /* Gradiente oscuro para encabezados */
+    -fx-text-fill: #ffffff; /* Texto blanco */
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}

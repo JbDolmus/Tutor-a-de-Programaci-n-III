@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="360.0" prefWidth="491.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="application.PruebaController">
+   <children>
+      <TextField fx:id="txtNombre" alignment="TOP_LEFT" layoutX="159.0" layoutY="155.0" onAction="#eventKey" prefHeight="26.0" prefWidth="171.0" promptText="Ingrese su nombre" />
+   </children>
+</AnchorPane>
