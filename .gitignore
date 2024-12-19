@@ -1,0 +1,42 @@
+# Archivos y carpetas generados por Eclipse
+/.settings/
+/bin/
+/.classpath
+.project
+
+# Archivos generados por IntelliJ IDEA (si también usas este IDE)
+/.idea/
+/*.iml
+
+# Archivos y carpetas de construcción
+/build/
+/target/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de logs
+*.log
+
+# Archivos de configuración local
+*.env
+*.properties
+
+# Configuraciones de Scene Builder
+/scenebuilder/*
+*.fxml.bak
+
+# Dependencias de Maven/Gradle (si las usas)
+/.mvn/
+/.gradle/
+/build/
+
+# Bases de datos locales y conexiones temporales de MySQL
+*.sql
+*.db
+*.db-journal
+
+# Configuraciones específicas del usuario (opcional)
+.vscode/
+*.class
