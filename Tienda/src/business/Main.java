@@ -1,13 +1,13 @@
 package business;
-	
+
 import java.net.URI;
 import java.nio.file.Paths;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 public class Main extends Application {
 	@Override
@@ -15,7 +15,7 @@ public class Main extends Application {
 		try {
 			URI url = Paths.get("src/view/TiendaView.fxml").toAbsolutePath().toUri();
 			System.out.println("URL: " + url.toString());
-			
+
 			Parent root = FXMLLoader.load(url.toURL());
 			Scene scene = new Scene(root);
 //			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
@@ -26,7 +26,7 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		launch(args);
 	}

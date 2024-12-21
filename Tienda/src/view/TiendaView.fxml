@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-
 <HBox prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="business.TiendaViewController">
    <children>
       <AnchorPane minWidth="250.0" prefHeight="600.0" prefWidth="300.0" style="-fx-border-style: solid; -fx-border-color: gray;" styleClass="form-container" stylesheets="@../business/application.css">

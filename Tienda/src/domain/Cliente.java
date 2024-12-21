@@ -4,7 +4,7 @@ public class Cliente extends Persona {
 	private String code;
 	private String address;
 	private String typeClient;
-	
+
 	public String getCode() {
 		return code;
 	}
@@ -23,6 +23,6 @@ public class Cliente extends Persona {
 	public void setTypeClient(String typeClient) {
 		this.typeClient = typeClient;
 	}
-	
-	
+
+
 }

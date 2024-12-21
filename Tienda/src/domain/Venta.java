@@ -4,7 +4,7 @@ public class Venta {
 	private Cliente cliente;
 	private Vendedor vendedor;
 	private Articulo articulo;
-			
+
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -23,6 +23,6 @@ public class Venta {
 	public void setArticulo(Articulo articulo) {
 		this.articulo = articulo;
 	}
-	
-	
+
+
 }

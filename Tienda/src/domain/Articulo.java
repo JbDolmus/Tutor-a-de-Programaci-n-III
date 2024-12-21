@@ -4,7 +4,7 @@ public class Articulo {
 	private String mark;
 	private String description;
 	private double price;
-	
+
 	public String getMark() {
 		return mark;
 	}
@@ -23,7 +23,7 @@ public class Articulo {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	
-	
-	
+
+
+
 }

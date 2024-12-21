@@ -3,7 +3,7 @@ package domain;
 public class Persona {
 	private String identification;
 	private String name;
-	
+
 	public String getIdentification() {
 		return identification;
 	}
@@ -16,6 +16,6 @@ public class Persona {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
+
+
 }
