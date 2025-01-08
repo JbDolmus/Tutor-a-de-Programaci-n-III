@@ -2,7 +2,7 @@
 package domain;
 
 
-public class Cliente extends Persona{
+public class Cliente extends Persona {
     private String codigoCliente;
     private String direccionCliente;
     private String tipoCliente;

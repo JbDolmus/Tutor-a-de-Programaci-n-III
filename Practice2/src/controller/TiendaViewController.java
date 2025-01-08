@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import data.ClientData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -55,14 +56,12 @@ public class TiendaViewController implements Initializable {
 		cmbClientType.setItems(items);
 		cmbClientType.setValue("Seleccione el tipo de cliente");
 
-		listClients = new ArrayList<>();
-
 		loadClients();
 
 		menuOptions = new ContextMenu();
 		MenuItem edit = new MenuItem("Editar");
 		MenuItem delete = new MenuItem("Eliminar");
-		
+
 		// Agregar ícono al item "Editar"
 		Image editIcon = new Image(getClass().getResourceAsStream("/img/edit.png")); // Ruta al archivo
 		ImageView editIconView = new ImageView(editIcon);
@@ -102,7 +101,9 @@ public class TiendaViewController implements Initializable {
 							"¿Deseas eliminar el cliente " + deleteClient.getNombre() + "?");
 
 					if (result.get() == ButtonType.OK) {
-						listClients.remove(deleteClient);
+						ClientData.deleteClientById(deleteClient.getCedula());
+						//listClients.remove(deleteClient);
+						showAlert("Éxito", "¡Cliente eliminado exitosamente!");
 						loadClients();
 					}
 				} else {
@@ -118,22 +119,19 @@ public class TiendaViewController implements Initializable {
 	// Event Listener on Button[#btnRegister].onAction
 	@FXML
 	public void btnRegisterOnAction(ActionEvent event) {
-
 		if (validateFormClient().isEmpty()) {
+			Cliente client = setClient(new Cliente());
 
 			if (selectedClient == null) {
-				// Instanciamos el objeto cliente y lo llenamos
-				Cliente client = new Cliente();
-				listClients.add(setClient(client));
+				// Guardar nuevo cliente
+				ClientData.saveClient(client);
+				//listClients.add(client);
 				showAlert("Éxito", "¡Cliente registrado exitosamente!");
 			} else {
-
-				for (Cliente client : listClients) {
-					if (client.equals(selectedClient)) {
-						setClient(client);
-						break;
-					}
-				}
+				// Actualizar cliente existente
+				ClientData.updateClientById(client, client.getCedula());
+				//int index = listClients.indexOf(selectedClient);
+				//listClients.set(index, client);
 				showAlert("Éxito", "¡Cliente actualizado exitosamente!");
 			}
 
@@ -187,6 +185,7 @@ public class TiendaViewController implements Initializable {
 	private void clearFields() {
 		txtName.setText("");
 		txtIdentification.setText("");
+		txtIdentification.setDisable(false);
 		txtCode.setText("");
 		txtAddress.setText("");
 		cmbClientType.getSelectionModel().selectFirst();
@@ -196,6 +195,7 @@ public class TiendaViewController implements Initializable {
 	}
 
 	public void loadClients() {
+		listClients = ClientData.getClients();
 		tbListClients.getItems().clear();
 		tbListClients.getColumns().clear();
 		tbListClients.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_NEXT_COLUMN);
@@ -226,10 +226,12 @@ public class TiendaViewController implements Initializable {
 	private void fillFormClient(Cliente cliente) {
 		txtName.setText(cliente.getNombre());
 		txtIdentification.setText(cliente.getCedula());
+		txtIdentification.setDisable(true);
 		txtCode.setText(cliente.getCodigoCliente());
 		txtAddress.setText(cliente.getDireccionCliente());
 		cmbClientType.getSelectionModel().select(cliente.getTipoCliente());
 		btnRegister.setText("Actualizar");
 		btnCancel.setDisable(false);
+		
 	}
 }

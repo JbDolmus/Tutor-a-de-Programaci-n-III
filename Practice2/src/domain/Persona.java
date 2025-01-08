@@ -3,7 +3,7 @@ package domain;
 
 
 public class Persona {
-    public String cedula;
+    private String cedula;
     private String nombre;
 
     public String getCedula() {
