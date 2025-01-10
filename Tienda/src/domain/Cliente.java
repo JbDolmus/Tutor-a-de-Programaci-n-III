@@ -4,6 +4,8 @@ public class Cliente extends Persona {
 	private String code;
 	private String address;
 	private String typeClient;
+	
+	public Cliente() {}
 
 	public String getCode() {
 		return code;

@@ -1,7 +1,5 @@
-/application/
-/controller/
+/business/
 /data/
 /database/
 /domain/
-/img/
 /view/

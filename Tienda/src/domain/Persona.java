@@ -3,6 +3,8 @@ package domain;
 public class Persona {
 	private String identification;
 	private String name;
+	
+	public Persona() {}
 
 	public String getIdentification() {
 		return identification;

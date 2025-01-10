@@ -7,4 +7,6 @@ module Tienda {
 	requires com.fasterxml.jackson.datatype.jsr310;
 
 	opens business to javafx.graphics, javafx.fxml;
+	exports business;
+	exports domain;
 }

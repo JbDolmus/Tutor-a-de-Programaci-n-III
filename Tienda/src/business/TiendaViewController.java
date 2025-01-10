@@ -2,11 +2,16 @@ package business;
 
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import data.ClientData;
 import domain.Cliente;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +22,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 public class TiendaViewController implements Initializable {
@@ -44,10 +50,12 @@ public class TiendaViewController implements Initializable {
 	public void btnSaveOnAction(ActionEvent event) {
 
 		if (validateFormClient().isEmpty()) {
-			Cliente client = new Cliente();
-			listClients.add(setClient(client));
-			System.out.println( listClients.getFirst());
+			Cliente client = setClient(new Cliente());
+			
+			ClientData.createClient(client);
 			showAlert("Éxito", "¡Cliente registrado exitosamente!");
+			
+			loadClients();
 		} else {
 			showAlert("Error", validateFormClient());
 		}
@@ -69,7 +77,7 @@ public class TiendaViewController implements Initializable {
 		cmbTypeClient.setItems(items);
 		cmbTypeClient.setValue("Seleccione un tipo de cliente");
 
-		listClients = new ArrayList<Cliente>();
+		loadClients();
 
 	}
 
@@ -105,6 +113,35 @@ public class TiendaViewController implements Initializable {
 		client.setAddress(txtAddress.getText());
 		client.setTypeClient(cmbTypeClient.getSelectionModel().getSelectedItem());
 		return client;
+	}
+	
+	public void loadClients() {
+		listClients = ClientData.getClients();
+		tableClients.getItems().clear();
+		tableClients.getColumns().clear();
+		tableClients.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_NEXT_COLUMN);
+		
+		ObservableList<Cliente> clients = FXCollections.observableArrayList(listClients);
+		
+		TableColumn<Cliente, String> nameColumn = new TableColumn<Cliente, String>("Nombre");
+		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+		
+		TableColumn<Cliente, String> identificationColumn = new TableColumn<Cliente, String>("Identificación");
+		identificationColumn.setCellValueFactory(new PropertyValueFactory<>("identification"));
+		
+		TableColumn<Cliente, String> codeColumn = new TableColumn<Cliente, String>("Código");
+		codeColumn.setCellValueFactory(new PropertyValueFactory<>("code"));
+		
+		TableColumn<Cliente, String> addressColumn = new TableColumn<Cliente, String>("Dirección");
+		addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
+		
+		TableColumn<Cliente, String> typeClientColumn = new TableColumn<Cliente, String>("Tipo de cliente");
+		typeClientColumn.setCellValueFactory(new PropertyValueFactory<>("typeClient"));
+		
+		tableClients.setItems(clients);
+		List<TableColumn<Cliente, String>> columns = Arrays.asList(nameColumn, identificationColumn, codeColumn, addressColumn, typeClientColumn);
+		tableClients.getColumns().addAll(columns);
+		
 	}
 
 }
