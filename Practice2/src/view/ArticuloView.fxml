@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ArticuloViewController">
+   <children>
+      <AnchorPane minWidth="250.0" prefHeight="600.0" prefWidth="300.0" styleClass="form-container" stylesheets="@../application/application.css">
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+         <children>
+            <Label alignment="CENTER" layoutX="233.0" layoutY="14.0" text="Gestión de Artículos" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="20.0">
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </Label>
+            <Label layoutX="14.0" layoutY="47.0" prefHeight="18.0" prefWidth="129.0" text="Marca" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="60.0">
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </Label>
+            <ComboBox fx:id="comboMark" layoutX="14.0" layoutY="87.0" prefWidth="150.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="90.0" />
+            <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="144.0" text="Descripción" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="140.0">
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </Label>
+            <TextArea fx:id="txtDescription" layoutX="11.2" layoutY="167.0" prefHeight="97.0" prefWidth="278.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="170.0" />
+            <Label layoutX="14.0" layoutY="292.0" text="Precio" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="285.0">
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="txtPrice" layoutX="11.0" layoutY="319.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="320.0">
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </TextField>
+            <Button fx:id="btnSave" layoutX="124.0" layoutY="397.0" mnemonicParsing="false" onAction="#btnSaveAction" text="Agregar" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="400.0">
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </Button>
+            <Button fx:id="btnCancel" disable="true" layoutX="124.0" layoutY="458.0" mnemonicParsing="false" onAction="#btnCancelAction" text="Cancelar" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="450.0">
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane minWidth="400.0" prefHeight="600.0" prefWidth="700.0" styleClass="table-container" stylesheets="@../application/application.css" HBox.hgrow="ALWAYS">
+         <children>
+            <Label alignment="CENTER" layoutX="336.0" layoutY="22.0" text="Listado de Artículos" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="20.0">
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </Label>
+            <TableView fx:id="tableArticles" layoutX="44.0" layoutY="93.6" prefHeight="485.0" prefWidth="646.0" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="77.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</HBox>

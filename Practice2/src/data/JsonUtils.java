@@ -9,17 +9,17 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 
 public class JsonUtils<T> {
-    private static String filePath;
+    private String filePath;
     private static final ObjectMapper mapper =
             new ObjectMapper().registerModule(new JavaTimeModule());
 
     public JsonUtils(String fp) {
-        JsonUtils.filePath = fp;
+        this.filePath = fp;
     }
 
     // Obtener todos los elementos como un Map
     public Map<String, T> getElements(Class<T> temp) throws IOException {
-        File file = new File(JsonUtils.filePath);
+        File file = new File(this.filePath);
         if (!file.exists()) {
             return new HashMap<>();
         }

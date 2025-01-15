@@ -14,7 +14,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			URI url = Paths.get("src/view/TiendaView.fxml").toAbsolutePath().toUri();
+			URI url = Paths.get("src/view/HomeView.fxml").toAbsolutePath().toUri();
 			System.out.println(url.toString());
 			Parent root = FXMLLoader.load(url.toURL());
 			Scene scene = new Scene(root);
