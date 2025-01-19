@@ -5,7 +5,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+import javafx.stage.Stage;
 import javafx.event.EventHandler;
 
 import java.awt.Menu;
@@ -22,7 +22,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -60,15 +63,15 @@ public class TiendaViewController implements Initializable {
 
 		if (validateFormClient().isEmpty()) {
 			Cliente client = setClient(new Cliente());
-			
-			if(selectedClient == null) {
+
+			if (selectedClient == null) {
 				ClientData.createClient(client);
 				showAlert("Éxito", "¡Cliente registrado exitosamente!");
-			}else {
+			} else {
 				ClientData.updateClientById(client, client.getIdentification());
 				showAlert("Éxito", "¡Cliente actualizado exitosamente!");
 			}
-			
+
 			loadClients();
 			clearFields();
 		} else {
@@ -93,73 +96,74 @@ public class TiendaViewController implements Initializable {
 		cmbTypeClient.setValue("Seleccione un tipo de cliente");
 
 		loadClients();
-		
+
 		menuOptions = new ContextMenu();
 		MenuItem edit = new MenuItem("Editar");
 		MenuItem delete = new MenuItem("Eliminar");
-		
-		//Agregar icono del item Editar
+
+		// Agregar icono del item Editar
 		Image editIcon = new Image(getClass().getResourceAsStream("/img/edit.png"));
 		ImageView editIconView = new ImageView(editIcon);
 		editIconView.setFitWidth(16);
 		editIconView.setFitHeight(16);
-		
-		//Agregar icono del item Eliminar
+
+		// Agregar icono del item Eliminar
 		Image deleteIcon = new Image(getClass().getResourceAsStream("/img/delete.png"));
 		ImageView deleteIconView = new ImageView(deleteIcon);
 		deleteIconView.setFitWidth(16);
 		deleteIconView.setFitHeight(16);
-		
+
 		edit.setGraphic(editIconView);
 		delete.setGraphic(deleteIconView);
-		
+
 		edit.setOnAction(new EventHandler<ActionEvent>() {
-						
+
 			@Override
 			public void handle(ActionEvent arg0) {
-				int index =  tableClients.getSelectionModel().getSelectedIndex();
-				
-				if(index > -1) {
+				int index = tableClients.getSelectionModel().getSelectedIndex();
+
+				if (index > -1) {
 					selectedClient = tableClients.getItems().get(index);
-					
+
 					fillFormClient(selectedClient);
-				}else {
+				} else {
 					showAlert("Error", "¡Debes seleccionar un cliente para poder editarlo!");
 				}
 			}
 		});
-		
-		
+
 		delete.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				int index =  tableClients.getSelectionModel().getSelectedIndex();
-				
-				if(index > -1) {
+				int index = tableClients.getSelectionModel().getSelectedIndex();
+
+				if (index > -1) {
 					Cliente deleteClient = tableClients.getItems().get(index);
-					Optional<ButtonType> result = showAlert("Confirmación", "¿Deseas eliminar el cliente " + deleteClient.getName() + "?" );
-					
-					if(result.get() == ButtonType.OK) {
+					Optional<ButtonType> result = showAlert("Confirmación",
+							"¿Deseas eliminar el cliente " + deleteClient.getName() + "?");
+
+					if (result.get() == ButtonType.OK) {
 						ClientData.deleteClientById(deleteClient.getIdentification());
 						showAlert("Exito", "¡Cliente eliminado exitosamente!");
 						loadClients();
 					}
-				}else {
+				} else {
 					showAlert("Error", "¡Debes seleccionar un cliente para poder editarlo!");
 				}
-				
+
 			}
-			
+
 		});
-		
+
 		menuOptions.getItems().addAll(edit, delete);
 		tableClients.setContextMenu(menuOptions);
-		
+
 	}
 
-	private Optional<ButtonType> showAlert(String title, String message){
-		Alert alert = new Alert(title.equalsIgnoreCase("Error") ? Alert.AlertType.ERROR : title.equalsIgnoreCase(" Éxito") ? Alert.AlertType.INFORMATION : Alert.AlertType.CONFIRMATION);
+	private Optional<ButtonType> showAlert(String title, String message) {
+		Alert alert = new Alert(title.equalsIgnoreCase("Error") ? Alert.AlertType.ERROR
+				: title.equalsIgnoreCase(" Éxito") ? Alert.AlertType.INFORMATION : Alert.AlertType.CONFIRMATION);
 		alert.setHeaderText(null);
 		alert.setTitle(title);
 		alert.setContentText(message);
@@ -191,7 +195,7 @@ public class TiendaViewController implements Initializable {
 		client.setTypeClient(cmbTypeClient.getSelectionModel().getSelectedItem());
 		return client;
 	}
-	
+
 	private void clearFields() {
 		txtName.setText("");
 		txtIdentification.setText("");
@@ -203,36 +207,37 @@ public class TiendaViewController implements Initializable {
 		btnCancel.setDisable(true);
 		selectedClient = null;
 	}
-	
+
 	public void loadClients() {
 		listClients = ClientData.getClients();
 		tableClients.getItems().clear();
 		tableClients.getColumns().clear();
 		tableClients.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_NEXT_COLUMN);
-		
+
 		ObservableList<Cliente> clients = FXCollections.observableArrayList(listClients);
-		
+
 		TableColumn<Cliente, String> nameColumn = new TableColumn<Cliente, String>("Nombre");
 		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-		
+
 		TableColumn<Cliente, String> identificationColumn = new TableColumn<Cliente, String>("Identificación");
 		identificationColumn.setCellValueFactory(new PropertyValueFactory<>("identification"));
-		
+
 		TableColumn<Cliente, String> codeColumn = new TableColumn<Cliente, String>("Código");
 		codeColumn.setCellValueFactory(new PropertyValueFactory<>("code"));
-		
+
 		TableColumn<Cliente, String> addressColumn = new TableColumn<Cliente, String>("Dirección");
 		addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
-		
+
 		TableColumn<Cliente, String> typeClientColumn = new TableColumn<Cliente, String>("Tipo de cliente");
 		typeClientColumn.setCellValueFactory(new PropertyValueFactory<>("typeClient"));
-		
+
 		tableClients.setItems(clients);
-		List<TableColumn<Cliente, String>> columns = Arrays.asList(nameColumn, identificationColumn, codeColumn, addressColumn, typeClientColumn);
+		List<TableColumn<Cliente, String>> columns = Arrays.asList(nameColumn, identificationColumn, codeColumn,
+				addressColumn, typeClientColumn);
 		tableClients.getColumns().addAll(columns);
-		
+
 	}
-	
+
 	private void fillFormClient(Cliente client) {
 		txtName.setText(client.getName());
 		txtIdentification.setText(client.getIdentification());
@@ -242,6 +247,23 @@ public class TiendaViewController implements Initializable {
 		cmbTypeClient.getSelectionModel().select(client.getTypeClient());
 		btnSave.setText("Actualizar");
 		btnCancel.setDisable(false);
+	}
+
+	public void closeWindows() {
+
+		try {
+
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HomeView.fxml"));
+			Parent root = loader.load();
+			Scene scene = new Scene(root);
+			Stage stage = new Stage();
+			stage.setScene(scene);
+			stage.show();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }
