@@ -56,6 +56,7 @@ public class TiendaViewController implements Initializable {
 
 	private ArrayList<Cliente> listClients;
 	private Cliente selectedClient;
+	private int idClient = 0;
 
 	// Event Listener on Button[#btnSave].onAction
 	@FXML
@@ -68,7 +69,7 @@ public class TiendaViewController implements Initializable {
 				ClientData.createClient(client);
 				showAlert("Éxito", "¡Cliente registrado exitosamente!");
 			} else {
-				ClientData.updateClientById(client, client.getIdentification());
+				ClientData.updateClientById(client);
 				showAlert("Éxito", "¡Cliente actualizado exitosamente!");
 			}
 
@@ -96,6 +97,7 @@ public class TiendaViewController implements Initializable {
 		cmbTypeClient.setValue("Seleccione un tipo de cliente");
 
 		loadClients();
+		
 
 		menuOptions = new ContextMenu();
 		MenuItem edit = new MenuItem("Editar");
@@ -124,6 +126,7 @@ public class TiendaViewController implements Initializable {
 
 				if (index > -1) {
 					selectedClient = tableClients.getItems().get(index);
+					idClient = selectedClient.getId();
 
 					fillFormClient(selectedClient);
 				} else {
@@ -140,13 +143,15 @@ public class TiendaViewController implements Initializable {
 
 				if (index > -1) {
 					Cliente deleteClient = tableClients.getItems().get(index);
+					idClient = deleteClient.getId();
 					Optional<ButtonType> result = showAlert("Confirmación",
 							"¿Deseas eliminar el cliente " + deleteClient.getName() + "?");
 
 					if (result.get() == ButtonType.OK) {
-						ClientData.deleteClientById(deleteClient.getIdentification());
+						ClientData.deleteClientById(idClient);
 						showAlert("Exito", "¡Cliente eliminado exitosamente!");
 						loadClients();
+						idClient = 0;
 					}
 				} else {
 					showAlert("Error", "¡Debes seleccionar un cliente para poder editarlo!");
@@ -188,6 +193,9 @@ public class TiendaViewController implements Initializable {
 	}
 
 	private Cliente setClient(Cliente client) {
+		if(idClient > 0) {
+			client.setId(idClient);
+		}
 		client.setName(txtName.getText());
 		client.setIdentification(txtIdentification.getText());
 		client.setCode(txtCode.getText());
@@ -199,13 +207,13 @@ public class TiendaViewController implements Initializable {
 	private void clearFields() {
 		txtName.setText("");
 		txtIdentification.setText("");
-		txtIdentification.setDisable(false);
 		txtCode.setText("");
 		txtAddress.setText("");
 		cmbTypeClient.getSelectionModel().selectFirst();
 		btnSave.setText("Registrar");
 		btnCancel.setDisable(true);
 		selectedClient = null;
+		idClient = 0;
 	}
 
 	public void loadClients() {
@@ -241,7 +249,6 @@ public class TiendaViewController implements Initializable {
 	private void fillFormClient(Cliente client) {
 		txtName.setText(client.getName());
 		txtIdentification.setText(client.getIdentification());
-		txtIdentification.setDisable(true);
 		txtCode.setText(client.getCode());
 		txtAddress.setText(client.getAddress());
 		cmbTypeClient.getSelectionModel().select(client.getTypeClient());

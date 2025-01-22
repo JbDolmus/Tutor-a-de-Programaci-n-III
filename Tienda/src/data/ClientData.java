@@ -1,58 +1,85 @@
 package data;
 
-import java.io.IOException;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Map;
-
 import domain.Cliente;
 
 public class ClientData {
-	
-	private static String fileName = "src/database/clients.json";
-	private static JsonUtils<Cliente> jsonUtils = new JsonUtils<>(fileName);
-	
-	public static ArrayList<Cliente> getClients(){
-		ArrayList<Cliente> listClients = new ArrayList<>();
+
+	public static ArrayList<Cliente> getClients() {
+		ArrayList<Cliente> list = new ArrayList<Cliente>();
+
 		try {
-			Map<String, Cliente> clients = jsonUtils.getElements(Cliente.class);
-			listClients.addAll(clients.values());
-		} catch( IOException e) {
-			System.out.println("Error: " + e.getMessage());
+			Connection cn = DBConnection.getConnection();
+			String query = "call getClients";
+			CallableStatement stmt = cn.prepareCall(query);
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				Cliente cliente = new Cliente();
+				cliente.setId(rs.getInt(1));
+				cliente.setName(rs.getString(2));
+				cliente.setIdentification(rs.getString(3));
+				cliente.setCode(rs.getString(4));
+				cliente.setAddress(rs.getString(5));
+				cliente.setTypeClient(rs.getString(6));
+				list.add(cliente);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		return listClients;
+
+		return list;
 	}
-	
+
 	public static void createClient(Cliente client) {
 		try {
-			Map<String, Cliente> clients = jsonUtils.getElements(Cliente.class);
-			if(clients.containsKey(client.getIdentification())) {
-				System.out.println("Ya existe un cliente con esa identificación");
-				return;
-			}
-			jsonUtils.save(client, client.getIdentification());
-			System.out.println("Cliente registrado exitosamente!");
-			
-		} catch ( IOException e) {
+			Connection cn = DBConnection.getConnection();
+			String query = "call saveClient(?,?,?,?,?)";
+			CallableStatement stmt = cn.prepareCall(query);
+			stmt.setString(1, client.getName());
+			stmt.setString(2, client.getIdentification());
+			stmt.setString(3, client.getCode());
+			stmt.setString(4, client.getAddress());
+			stmt.setString(5, client.getTypeClient());
+			stmt.executeQuery();
+
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void updateClientById(Cliente client, String id) {
+
+	public static void updateClientById(Cliente client) {
 		try {
-			jsonUtils.updateById(client, client.getIdentification());
-			System.out.println("Cliente actualizado exitosamente!");
-			
-		} catch ( IOException e) {
+			Connection cn = DBConnection.getConnection();
+			String query = "call updateClient(?,?,?,?,?,?)";
+			CallableStatement stmt = cn.prepareCall(query);
+			stmt.setInt(1, client.getId());
+			stmt.setString(2, client.getName());
+			stmt.setString(3, client.getIdentification());
+			stmt.setString(4, client.getCode());
+			stmt.setString(5, client.getAddress());
+			stmt.setString(6, client.getTypeClient());
+			stmt.executeQuery();
+
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void deleteClientById(String id) {
+
+	public static void deleteClientById(int id) {
 		try {
-			jsonUtils.deleteById(id, Cliente.class);
-			System.out.println("Cliente eliminado exitosamente!");
-			
-		} catch ( IOException e) {
+			Connection cn = DBConnection.getConnection();
+			String query = "call deleteClient(?)";
+			CallableStatement stmt = cn.prepareCall(query);
+			stmt.setInt(1, id);
+			stmt.executeQuery();
+
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
