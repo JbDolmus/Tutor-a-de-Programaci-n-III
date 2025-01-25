@@ -4,15 +4,14 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox alignment="CENTER" minWidth="700.0" prefHeight="600.0" prefWidth="1000.0" styleClass="home" stylesheets="@../business/homeView.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="business.HomeViewController">
    <children>
-      <Button fx:id="btnViewClients" mnemonicParsing="false" onAction="#btnViewClientsAction" styleClass="btnClients" stylesheets="@../business/homeView.css" text="Módulo de Clientes">
+      <Button fx:id="btnViewClients" mnemonicParsing="false" onAction="#btnViewClientsAction" prefHeight="50.0" prefWidth="250.0" styleClass="btnClients" stylesheets="@../business/homeView.css" text="Módulo de Clientes">
          <VBox.margin>
             <Insets bottom="10.0" />
          </VBox.margin>
       </Button>
-      <Button fx:id="btnViewArticles" mnemonicParsing="false" onAction="#btnViewArticlesAction" styleClass="btnArticles" stylesheets="@../business/homeView.css" text="Módulo de Artículos">
+      <Button fx:id="btnViewArticles" mnemonicParsing="false" onAction="#btnViewArticlesAction" prefHeight="50.0" prefWidth="250.0" styleClass="btnArticles" stylesheets="@../business/homeView.css" text="Módulo de Artículos">
          <VBox.margin>
             <Insets top="10.0" />
          </VBox.margin>

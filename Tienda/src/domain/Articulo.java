@@ -1,10 +1,17 @@
 package domain;
 
 public class Articulo {
+	private int id;
 	private String mark;
 	private String description;
 	private double price;
 
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getMark() {
 		return mark;
 	}

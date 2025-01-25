@@ -1,6 +1,4 @@
-/business/
-/data/
-/database/
-/domain/
-/img/
 /view/
+/domain/
+/data/
+/business/
